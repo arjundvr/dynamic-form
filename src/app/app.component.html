@@ -167,8 +167,8 @@
 
   .terminal {
     position: relative;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 400px;
     border-radius: 6px;
     padding-top: 45px;
     margin-top: 8px;
@@ -270,7 +270,7 @@
 
     .card-container > *:not(.circle-link) ,
     .terminal {
-      width: 100%;
+      width: 50%;
     }
 
     .card:not(.highlight-card) {
@@ -345,12 +345,27 @@
   </div>
 
   <!-- Next Steps -->
-  <h2>Next Steps</h2>
+  <div class="column-card">
+    <div class="form-field">
+      <h2>Form</h2>
 
-  <!-- Terminal -->
-  <div class="terminal">
-      <pre>ng generate component xyz</pre>
+      <app-dynamic-form formGroupNameStr="inputForm" [displayFields]="dataObj.displayFields"
+        [(dataObj)]="dataObj.formDataObj" (dataObjChange)="dataObjChange($event)">
+      </app-dynamic-form>
+
+      <button mat-raised-button (click)="submit()">
+        Submit
+      </button>
+      <div *ngIf="showResult" class="terminal">
+        <pre>{{response | json}}</pre>
+      </div>
+    </div>
+
+    <div class="terminal">
+        <pre>{{dataObj.displayFields | json}}</pre>
+    </div>
   </div>
+  <!-- Terminal -->
 
   <!-- Footer -->
   <footer>

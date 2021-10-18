@@ -1,0 +1,148 @@
+.title-section {
+    position: relative;
+    top: -4px;
+
+    .title {
+        font-size: 20px;
+        font-weight: normal;
+        padding: 0;
+
+        @media (min-width: 576px) {
+            font-size: 36px;
+        }
+    }
+}
+
+.mat-card-title {
+    padding-bottom: 0 !important;
+}
+
+.card-and-buttons-wrapper {
+    display: block;
+    position: relative;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mat-card-content {
+    @media (min-width: 576px) {
+        margin-left: 40px;
+    }
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.back-arrow {
+    @media (min-width: 576px) {
+        margin-top: 12px;
+    }
+    margin-right: 16px;
+}
+
+.separator {
+    margin: 5px 0 20px 0;
+}
+
+.label {
+    @media (min-width: 576px) {
+        padding-top: 15px;
+    }
+    color: #9b9b9b;
+}
+
+.row {
+    min-height: 40px;
+}
+
+.button-row {
+    margin-top: 16px;
+}
+
+.legacy-mirror-checkbox-wrapper {
+    padding-top: 32px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, 
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, 
+.mat-accent .mat-pseudo-checkbox-checked, 
+.mat-accent .mat-pseudo-checkbox-indeterminate, 
+.mat-pseudo-checkbox-checked, 
+.mat-pseudo-checkbox-indeterminate {
+    background-color: #0084d5 !important;
+}
+
+.checkbox-pd {
+    padding-bottom: 4px;
+    padding-top: 20px;
+}
+
+.radio-pd {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.button-icon {
+    line-height: 20px;
+}
+
+.float-right {
+    float: right;
+}
+
+.color-picker-well {
+    border: 1px #9b9b9b;
+    border-style: solid;
+    width: 30px;
+    margin-right: 15px;
+}
+
+mat-radio-button {
+    display: block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.input-list-value {
+    margin-right: 10px;
+}
+
+.input-list-icon-value {
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.input-list-icon-picker {
+    width: 32px;
+}
+
+.duration-input {
+    max-width: 33%;
+}
+
+.datetime-date {
+    max-width: 66%;
+}
+
+.datetime-zone {
+    max-width: 33%;
+}
+
+.multiselect-checkbox {
+    display: block;
+}
+
+quill-editor,
+.wysiwyg-textarea-wrapper {
+    display: block;
+    margin: 0.25em 0;
+    padding-bottom: 1.34375em;
+}
+.wysiwyg-textarea-wrapper textarea {
+    height: 464px;
+    width: 387px;
+}
