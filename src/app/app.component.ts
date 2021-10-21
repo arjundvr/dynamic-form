@@ -9,6 +9,9 @@ export class AppComponent {
   title = 'dynamic-form';
   showResult = false;
   response = {};
+  noResponse = {};
+  isFormInvalid = false;
+  isFormPristine = true;
 
   dataObj = {
     displayFields: [
@@ -23,7 +26,7 @@ export class AppComponent {
         id: 'email',
         label: 'Email',
         serviceAttrName: 'email',
-        type: 'textInput',
+        type: 'email',
         required: true
       },
       {
@@ -41,6 +44,53 @@ export class AppComponent {
             value: 'female'
           },
         ]
+      },
+      {
+        id: 'age',
+        label: 'Age(Male)',
+        serviceAttrName: 'age',
+        type: 'number',
+        dependentField: 'gender',
+        dependentFieldValues: ['male']
+      },
+      {
+        id: 'date',
+        label: 'Date',
+        serviceAttrName: 'date',
+        type: 'date',
+      },
+      {
+        id: 'timeZone',
+        label: 'Time with Zone',
+        serviceAttrName: 'timeZone',
+        type: 'dateTimeZone',
+        dropdownValues: [
+          {
+            text: 'Central Time',
+            value: 'America/Chicago'
+          },{
+            text: 'Eastern Time',
+            value: 'America/New_York'
+          },{
+            text: 'Pacific Time',
+            value: 'America/Los_Angeles'
+          },{
+            text: 'Mountain Time',
+            value: 'America/Denver'
+          }
+        ]
+      },
+      {
+        id: 'color',
+        label: 'Color',
+        serviceAttrName: 'color',
+        type: 'colorInput'
+      },
+      {
+        id: 'notes',
+        label: 'Notes',
+        serviceAttrName: 'notes',
+        type: 'wysiwygInput'
       }
     ],
     formDataObj: {
@@ -50,6 +100,8 @@ export class AppComponent {
   dataObjChange(data: any) {
     console.log(data)
     this.response = data.formDataObj;
+    this.isFormInvalid = data.isFormInvalid;
+    this.isFormPristine = data.isFormPristine;
   }
 
   submit() {

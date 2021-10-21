@@ -5,7 +5,9 @@
             <div *ngIf="isShowDependentField(fieldDetailsObj)" class="row">
                 <!-- Label -->
                 <div *ngIf="isShowDependentField(fieldDetailsObj)"
-                    [ngClass]="labelClass" class="label">{{fieldDetailsObj.label}}</div>
+                    [ngClass]="labelClass" class="label">{{fieldDetailsObj.label}}
+                    <span *ngIf="fieldDetailsObj.required || false" class="label-required">*</span>
+                </div>
 
                 <!-- Text Input -->
                 <div *ngIf="fieldDetailsObj.type === 'textInput' && isShowDependentField(fieldDetailsObj)"
@@ -111,7 +113,7 @@
                 </div>
 
                 <!-- Date Input -->
-                <!-- <div *ngIf="fieldDetailsObj.type === 'date' && isShowDependentField(fieldDetailsObj)"
+                <div *ngIf="fieldDetailsObj.type === 'date' && isShowDependentField(fieldDetailsObj)"
                     [ngClass]="inputClass">
                     <mat-form-field floatLabel="never" appearance="outline">
                         <input matInput [min]="fieldDetailsObj.minDueDate" [matDatepicker]="picker" [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false"
@@ -123,7 +125,7 @@
                             {{fieldDetailsObj.label}} is <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                </div> -->
+                </div>
 
                 <!-- Time Input -->
                 <div *ngIf="fieldDetailsObj.type === 'dateTimeZone' && isShowDependentField(fieldDetailsObj)"
@@ -238,99 +240,6 @@
                     </mat-error>
                 </div>
 
-                <!-- Input List -->
-                <!-- <div *ngIf="fieldDetailsObj.type === 'inputList' && isShowDependentField(fieldDetailsObj)"
-                     [ngClass]="inputClass">
-                    <mat-form-field *ngFor="let inputValue of dataObj[fieldDetailsObj.serviceAttrName]; index as inputValueIndex" floatLabel="never" appearance="outline">
-                        <input matInput [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false"
-                               [formControlName]="fieldDetailsObj.serviceAttrName + '-' + inputValue.value"/>
-                        <button mat-button matSuffix mat-icon-button (click)="removeInputListItem((fieldDetailsObj.serviceAttrName + '-' + inputValue.value), dataObj[fieldDetailsObj.serviceAttrName])">
-                            <mat-icon color="primary">remove_circle_outline</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <button mat-raised-button (click)="addInputListItem(fieldDetailsObj?.serviceAttrName, dataObj[fieldDetailsObj.serviceAttrName])" class="float-right">
-                        <mat-icon color="primary" class="button-icon">add</mat-icon>
-                        Add Option
-                    </button>
-                </div> -->
-
-                <!-- Input List based on Input Count -->
-                <div *ngIf="fieldDetailsObj.type === 'inputListBasedOnCount' && isShowDependentField(fieldDetailsObj)"
-                     [ngClass]="inputClass">
-                     <mat-form-field floatLabel="never" appearance="outline">
-                        <input matInput type="number" [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false" [min]="fieldDetailsObj.minValue" [max]="fieldDetailsObj.maxValue"
-                                [formControlName]="fieldDetailsObj.counterName" (change)="createDynamicOptions(fieldDetailsObj)"/>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required">
-                            {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('number')">
-                            Number format is <strong>invalid</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('min')">
-                            Min value is <strong>{{fieldDetailsObj.minValue}}</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('max')">
-                            Max value is <strong>{{fieldDetailsObj.maxValue}}</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <div *ngFor="let inputValue of dataObj[fieldDetailsObj.serviceAttrName]; index as inputValueIndex"><span *ngIf="inputValueIndex === 1">Options</span></div>
-                    <mat-form-field *ngFor="let inputValue of dataObj[fieldDetailsObj.serviceAttrName]; index as inputValueIndex" floatLabel="never" appearance="outline">
-                        <div class="d-flex">
-                            <span class="input-list-value">{{inputValue.value}}.</span>
-                            <input matInput [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false"
-                                [formControlName]="fieldDetailsObj.serviceAttrName + '-' + inputValue.value"/>
-                        </div>
-                    </mat-form-field>
-                </div>
-
-                <!-- Input List based with Icon set and color picker on Input Count -->
-                <!-- <div *ngIf="fieldDetailsObj.type === 'inputListIconPickerBasedOnCount' && isShowDependentField(fieldDetailsObj)"
-                     [ngClass]="inputClass">
-                     <mat-form-field floatLabel="never" appearance="outline">
-                        <input matInput type="number" [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false" [min]="fieldDetailsObj.minValue" [max]="fieldDetailsObj.maxValue"
-                                [formControlName]="fieldDetailsObj.counterName" (change)="createDynamicOptions(fieldDetailsObj)"/>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required">
-                            {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('number')">
-                            Number format is <strong>invalid</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('min')">
-                            Min value is <strong>{{fieldDetailsObj.minValue}}</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.counterName].hasError('max')">
-                            Max value is <strong>{{fieldDetailsObj.maxValue}}</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <div *ngFor="let inputValue of dataObj[fieldDetailsObj.serviceAttrName]; index as inputValueIndex"><span *ngIf="inputValueIndex === 1">Options</span></div>
-                    <mat-form-field *ngFor="let inputValue of dataObj[fieldDetailsObj.serviceAttrName]; index as inputValueIndex" floatLabel="never" appearance="outline">
-                        <div class="d-flex">
-                            <span class="input-list-icon-value">{{inputValue.value}}.</span>
-                            <input matInput [placeholder]="fieldDetailsObj.placeholder || ''" [required]="fieldDetailsObj.required || false"
-                                [formControlName]="fieldDetailsObj.serviceAttrName + '-' + inputValue.value"/>
-                            <button matPrefix [colorPicker]="formGroup[formGroupNameStr].controls[fieldDetailsObj.iconColorAttrName + '-' + inputValue.value].value" [cpOutputFormat]="'hex'" [style.background]="formGroup[formGroupNameStr].controls[fieldDetailsObj.iconColorAttrName + '-' + inputValue.value].value" (colorPickerChange)="updateColor(formGroup[formGroupNameStr].controls[fieldDetailsObj.iconColorAttrName + '-' + inputValue.value], $event)" class="color-picker-well" cpWidth="175px" cpPosition="left">
-                                <mat-icon color="primary"></mat-icon>
-                            </button>
-                            <span matPrefix *ngFor="let each of fieldDetailsObj.iconSetDropdownValues" [hidden]="each.value !== formGroup[formGroupNameStr].controls[fieldDetailsObj.iconAttrName + '-' + inputValue.value].value">
-                                <img height="32px" [src]="each.text" />
-                            </span>
-                            <mat-select class="input-list-icon-picker" (selectionChange)="keyUpHandler()" [formControlName]="fieldDetailsObj.iconAttrName + '-' + inputValue.value">
-                                <mat-option *ngFor="let each of fieldDetailsObj.iconSetDropdownValues" [value]="each.value">
-                                    <img height="32px" [src]="each.text"/>
-                                </mat-option>
-                            </mat-select>
-                        </div>
-                    </mat-form-field>
-                </div> -->
-
                 <!-- Color Picker -->
                 <div *ngIf="fieldDetailsObj.type === 'colorInput' && isShowDependentField(fieldDetailsObj)"
                      [ngClass]="inputClass">
@@ -347,74 +256,6 @@
                         <mat-error
                                 *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName]) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName].hasError('whitespace')">
                             {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <!-- Time Duration Input -->
-                <div *ngIf="fieldDetailsObj.type === 'timeDuration' && isShowDependentField(fieldDetailsObj)"
-                     [ngClass]="inputClass" class="d-flex justify-content-between flex-fill flex-wrap">
-                    <mat-form-field floatLabel="never" appearance="outline" class="duration-input">
-                        <mat-label>Days</mat-label>
-                        <input matInput type="number" placeholder="Days" [required]="fieldDetailsObj.required || false" [min]="fieldDetailsObj.minValue" [max]="fieldDetailsObj.maxValue"
-                               [formControlName]="fieldDetailsObj.serviceAttrName + 'Days'"/>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days']) && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].errors?.required">
-                            {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].hasError('number')">
-                            Number format is <strong>invalid</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].hasError('min')">
-                            Min value is <strong>{{fieldDetailsObj.minValue}}</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Days'].hasError('max')">
-                            Max value is <strong>{{fieldDetailsObj.maxValue}}</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field floatLabel="never" appearance="outline" class="duration-input">
-                        <mat-label>Hours</mat-label>
-                        <input matInput type="number" placeholder="Hours" [required]="fieldDetailsObj.required || false" [min]="fieldDetailsObj.minValue" [max]="fieldDetailsObj.maxValue"
-                               [formControlName]="fieldDetailsObj.serviceAttrName + 'Hours'"/>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours']) && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].errors?.required">
-                            {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].hasError('number')">
-                            Number format is <strong>invalid</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].hasError('min')">
-                            Min value is <strong>{{fieldDetailsObj.minValue}}</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Hours'].hasError('max')">
-                            Max value is <strong>{{fieldDetailsObj.maxValue}}</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field floatLabel="never" appearance="outline" class="duration-input">
-                        <mat-label>Minutes</mat-label>
-                        <input matInput type="number" placeholder="Minutes" [required]="fieldDetailsObj.required || false" [min]="fieldDetailsObj.minValue" [max]="fieldDetailsObj.maxValue"
-                               [formControlName]="fieldDetailsObj.serviceAttrName + 'Minutes'"/>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes']) && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].errors?.required">
-                            {{fieldDetailsObj.label}} is <strong>required</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].hasError('number')">
-                            Number format is <strong>invalid</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].hasError('min')">
-                            Min value is <strong>{{fieldDetailsObj.minValue}}</strong>
-                        </mat-error>
-                        <mat-error
-                                *ngIf="isFormControlTouched(formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes']) && !formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].errors?.required && formGroup[formGroupNameStr].controls[fieldDetailsObj.serviceAttrName + 'Minutes'].hasError('max')">
-                            Max value is <strong>{{fieldDetailsObj.maxValue}}</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>

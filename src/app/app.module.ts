@@ -16,7 +16,7 @@ import { QuillModule } from 'ngx-quill';
   ],
   imports: [
     BrowserModule,
-    QuillModule,
+    QuillModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

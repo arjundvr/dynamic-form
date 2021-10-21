@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-// import * as Quill from 'quill';
 
-// import { NoWhitespaceValidator } from './validator/no-whitespace.validator';
-// import { AlphaNumericValidator } from './validator/alphanumeric.validator';
+import { NoWhitespaceValidator } from './validator/no-whitespace.validator';
+import { AlphaNumericValidator } from './validator/alphanumeric.validator';
 import { Utility } from './utility';
 import { DisplayFields } from './model/dynamic-form.model';
-// import { MaxDateZoneValidator } from './validator/maxdate-zone.validator';
-// import { MinDateZoneValidator } from './validator/mindate-zone.validator';
 
 
 @Component({
@@ -28,24 +25,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
     fieldsToDisplay: DisplayFields[] = [];
     formGroup: any = {};
-
-    constructor() {
-
-        // Force Quill to use standard inline CSS, rather than custom quill namespaced classes
-        // const alignStyle = Quill.import('attributors/style/align');
-        // const backgroundStyle = Quill.import('attributors/style/background');
-        // const colorStyle = Quill.import('attributors/style/color');
-        // const directionStyle = Quill.import('attributors/style/direction');
-        // const fontStyle = Quill.import('attributors/style/font');
-        // const sizeStyle = Quill.import('attributors/style/size');
-
-        // Quill.register(alignStyle, true);
-        // Quill.register(backgroundStyle, true);
-        // Quill.register(colorStyle, true);
-        // Quill.register(directionStyle, true);
-        // Quill.register(fontStyle, true);
-        // Quill.register(sizeStyle, true);
-    }
 
     ngOnInit() {
         this.initForm();
@@ -111,32 +90,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
                                     disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
                         });
                     }
-                    // if (this.dataObj[fieldDetailsObj.iconAttrName]) {
-                    //     this.dataObj[fieldDetailsObj.iconAttrName].forEach((object: any) => {
-                    //         this.formGroup[this.formGroupNameStr].addControl(
-                    //             this.getInputListItemName(fieldDetailsObj.iconAttrName, object.value),
-                    //             new FormControl({ value: object.value ? object.value : undefined,
-                    //                 disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    //     });
-                    // }
-                    // if (this.dataObj[fieldDetailsObj.iconColorAttrName]) {
-                    //     this.dataObj[fieldDetailsObj.iconColorAttrName].forEach((object: any) => {
-                    //         this.formGroup[this.formGroupNameStr].addControl(
-                    //             this.getInputListItemName(fieldDetailsObj.iconColorAttrName, object.value),
-                    //             new FormControl({ value: object.value ? object.value : undefined,
-                    //                 disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    //     });
-                    // }
-                } else if (fieldDetailsObj.type === 'timeDuration') {
-                    this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.serviceAttrName + 'Days',
-                        new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,
-                            disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.serviceAttrName + 'Hours',
-                        new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,
-                            disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.serviceAttrName + 'Minutes',
-                        new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,
-                            disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
                 } else if (fieldDetailsObj.type === 'dateTimeZone') {
                     this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.serviceAttrName,
                         new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,
@@ -173,12 +126,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         if (fieldDetailsObj.type === 'email') {
             formControlValidators.push(Validators.email as any);
         }
-        // if (fieldDetailsObj.noWhitespaceValidator) {
-        //     formControlValidators.push(NoWhitespaceValidator);
-        // }
-        // if (fieldDetailsObj.alphaNumericValidator) {
-        //     formControlValidators.push(AlphaNumericValidator);
-        // }
+        if (fieldDetailsObj.noWhitespaceValidator) {
+            formControlValidators.push(NoWhitespaceValidator);
+        }
+        if (fieldDetailsObj.alphaNumericValidator) {
+            formControlValidators.push(AlphaNumericValidator);
+        }
         // if (!this.isEmpty(fieldDetailsObj.minlength)) {
         //     formControlValidators.push(Validators.minLength(fieldDetailsObj.minlength) as any);
         // }

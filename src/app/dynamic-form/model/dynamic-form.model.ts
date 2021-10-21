@@ -17,6 +17,7 @@ export interface DisplayFields {
     maxValue?: number;
     minRows?: number;
     maxRows?: number;
+    minDueDate?: any;
     noWhitespaceValidator?: boolean;
     alphaNumericValidator?: boolean;
     minDateAndZoneValidator?: boolean; // min date and corresponding timezone validator
