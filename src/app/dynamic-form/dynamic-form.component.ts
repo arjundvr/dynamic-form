@@ -61,35 +61,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
                                     disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
                         });
                     }
-                } else if (fieldDetailsObj.type === 'inputListBasedOnCount') {
-                    this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.counterName,
-                        new FormControl({ value: this.dataObj[fieldDetailsObj.serviceAttrName] ?
-                            this.dataObj[fieldDetailsObj.serviceAttrName].length : undefined,
-                            disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    if (this.dataObj[fieldDetailsObj.serviceAttrName]) {
-                        this.dataObj[fieldDetailsObj.counterName] = this.dataObj[fieldDetailsObj.serviceAttrName].length;
-
-                        this.dataObj[fieldDetailsObj.serviceAttrName].forEach((object: any) => {
-                            this.formGroup[this.formGroupNameStr].addControl(
-                                this.getInputListItemName(fieldDetailsObj.serviceAttrName, object.value),
-                                new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,
-                                    disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                        });
-                    }
-                } else if (fieldDetailsObj.type === 'inputListIconPickerBasedOnCount') {
-                    this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.counterName,
-                        new FormControl({ value: this.dataObj[fieldDetailsObj.serviceAttrName] ?
-                            this.dataObj[fieldDetailsObj.serviceAttrName].length : undefined,
-                            disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                    if (this.dataObj[fieldDetailsObj.serviceAttrName]) {
-                        this.dataObj[fieldDetailsObj.counterName] = this.dataObj[fieldDetailsObj.serviceAttrName].length;
-                        this.dataObj[fieldDetailsObj.serviceAttrName].forEach((object: any) => {
-                            this.formGroup[this.formGroupNameStr].addControl(
-                                this.getInputListItemName(fieldDetailsObj.serviceAttrName, object.value),
-                                new FormControl({ value: object.value ? object.value : undefined,
-                                    disabled: this.convertToBoolean(fieldDetailsObj.disabled) }, formControlValidators));
-                        });
-                    }
                 } else if (fieldDetailsObj.type === 'dateTimeZone') {
                     this.formGroup[this.formGroupNameStr].addControl(fieldDetailsObj.serviceAttrName,
                         new FormControl({ value: fieldDetailsObj.value ? fieldDetailsObj.value : undefined,

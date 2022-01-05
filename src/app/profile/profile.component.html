@@ -1,0 +1,27 @@
+<div class="column-card">
+    <div>
+        <h2>Metadata</h2>
+        <div class="terminal">
+            <pre>{{dataObj.displayFields | json}}</pre>
+        </div>
+    </div>
+    <div class="form-field">
+        <h2>Form</h2>
+
+        <app-dynamic-form formGroupNameStr="inputForm" [displayFields]="dataObj.displayFields"
+            [(dataObj)]="dataObj.formDataObj" (dataObjChange)="dataObjChange($event)">
+        </app-dynamic-form>
+        <button mat-raised-button (click)="submit()" [disabled]="isFormPristine || isFormInvalid">
+            Submit
+        </button>
+    </div>
+    <div>
+        <h2>Output</h2>
+        <div *ngIf="!showResult" class="terminal">
+            <pre>{{noResponse | json}}</pre>
+        </div>
+        <div *ngIf="showResult" class="terminal">
+            <pre>{{response | json}}</pre>
+        </div>
+    </div>
+</div>

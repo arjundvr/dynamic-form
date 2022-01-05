@@ -20,7 +20,7 @@ export class AppComponent {
         label: 'Name',
         serviceAttrName: 'name',
         type: 'textInput',
-        required: true
+        required: true,
       },
       {
         id: 'email',
@@ -62,7 +62,7 @@ export class AppComponent {
       {
         id: 'timeZone',
         label: 'Time with Zone',
-        serviceAttrName: 'timeZone',
+        serviceAttrName: 'dateTime',
         type: 'dateTimeZone',
         dropdownValues: [
           {
@@ -94,7 +94,8 @@ export class AppComponent {
       }
     ],
     formDataObj: {
-
+      name: 'Test 123',
+      email: 'test@ey.com'
     }
   }
   dataObjChange(data: any) {
